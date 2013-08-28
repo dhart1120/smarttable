@@ -1,0 +1,105 @@
+<html>
+<head>
+	<title>Test Page</title>
+	<style type="text/css">
+	#page_num {
+		margin-left: 130px;
+	}
+
+	#prev_btn {
+		float: left;
+	}
+
+	#next_btn {
+		float: right;
+	}
+
+	.limit, table {
+		width: 400px;
+	}
+
+	.table_wrap {
+		min-height: 200px;
+	}
+
+	th, td {
+		vertical-align: top;
+	}
+
+	.no_results {
+		color: red;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="limit">
+		<p>
+			Type your search here 
+			<input id="search_field" type="text" />
+		</p>
+		<div class="table_wrap">
+			<table id="smart_table">
+				<tr>
+					<td>Loading Smart Table</td>
+				</tr>
+			</table>
+		</div>
+		<input id="prev_btn" type="button" value="prev" />
+		<span id="page_num"></span>
+		<input id="next_btn" type="button" value="next" />
+	</div>
+
+
+	<script src="jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="jquery.smart.table.js"></script>
+	<script type="text/javascript">
+		var headers = ["ID", "Name", "Website", "Action"];
+		var data = [
+			["1", "One", {"text":"#One", "class_name":"special", "element":"a", "options":{"href":"http://www.siteone.com"}}, "action here"],
+			["2", "Two", {"text":"http://www.sitetwo.com", "search_text":"hello"}, ""],
+			["3", "Three", "http://www.sitethree.com", '<a class="action_btn" href="#">Anchor</a>'],
+			["4", "One", "http://www.siteone.com", {"text":"click me", "element":"p", "class_name":"action_btn"}],
+			["5", "Two", "http://www.two.com", {"text":"Go", "element":"span", "options":{"style":"background-color:red", "target":"_blank"}}],
+			["6", "Three", "http://www.sitethree.com", "action here"],
+			["7", "One", "http://www.siteone.com", "action here"],
+			["8", "Two", "http://www.sitetwo.com", "action here"],
+			["9", "Three", "http://www.sitethree.com", "action here"],
+			["10", "One", "http://www.siteone.com", "action here"],
+			["11", "Last", "http://www.endoftheline.com", "action here"],
+		];
+
+		/*
+		  Each item in the arrays represents a cell. The item can be a string with test or html, or it can be a JSON object.
+		  The JSON objects needs a "text" property. The text (which can be html) will be wrapped with an element. The default
+		  element is a span tag, but can be changed with the "element" propery. There are several other properties that can be
+		  added. 
+		    "text" the text (or html) that will be placed in the table cell (but also wrapped in the element)
+		    "element" the html element that will wrap the text, defaults to span
+		  	"class_name" this is the class attribute of the element
+		  	"search_text" this text will be used for the cell when search, if it doesn't exist, the text field is used
+		  	"options" this is a JSON object containing the other attributes. All properties in the object will be added 
+		  	          as attributes to the tag. Example: {"href":"index.html"} will add the attribute href="index.html"
+
+
+		  Example: The item {"text":"#One", "class_name":"special", "element":"a", "options":{"href":"http://www.siteone.com"}}
+		  will display the following code (or an equivalent) in the table's td tag
+		  <a class="special" href="http://www.sitemap.com">#One</a>
+		*/
+
+		$("#smart_table").smartTable({
+			"headers" : headers, //the table headers
+			"data" : data, //the table rows
+			"rows" : 5, //the max number of items per page
+			"next" : "next_btn", //the id of the next button (doesn't have to be a button)
+			"prev" : "prev_btn", //the id of the previous button (doesn't have to be a button)
+			"page_num" : "page_num", // The id of the element were the page numbers are displayed (replaces text)
+			"search" : "search_field" //The id of the text box where searches are entered
+		});
+
+
+	</script>
+</body>
+</html>
